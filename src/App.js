@@ -56,6 +56,8 @@ const App = () => {
                             onClose={() => setNotification('')}
                         />
                     )}
+                    <div style={{marginTop:'20px'}}>Created by <a href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</a></div>
+                    <div style={{marginTop:'20px'}}>Подписывайтесь на нашу группу в телеграм - <a href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</a></div>
                 </div>
             </Content>
         </Layout>
