@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import {Layout, Input, Button, Alert, Menu} from 'antd';
+import {Layout, Input, Button, Alert} from 'antd';
 import axios from 'axios'
 import {Header, Footer} from "antd/lib/layout/layout";
+import './App.css'
 
 const { Content } = Layout;
 
@@ -40,7 +41,7 @@ const App = () => {
     };
 
     return (
-        <Layout style={{display: 'flex', flexDirection: 'column',  height: '100vh'}}>
+        <Layout style={{display: 'flex', flexDirection: 'column',  height: '100%'}}>
             <Header style={{flex: '0 0 auto', display: 'flex', alignItems: 'center'}}>
                 <div className="logo" style={{color: 'white', display: 'flex', alignItems: 'center'}}>
                     <svg width="128" height="25" viewBox="0 0 128 25" fill="white" xmlns="http://www.w3.org/2000/svg">
