@@ -50,7 +50,7 @@ const App = () => {
             </Header>
             <Content style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: '1 0 auto' }}>
                 <div style={{ textAlign: 'center', padding: '0 20px'}}>
-                <Input value={value} onChange={handleInputChange} placeholder="Enter your SHM address"/>
+                <Input value={value} size='large' onChange={handleInputChange} placeholder="Enter your SHM address"/>
                 <Button type="primary" onClick={handleClick} loading={loading} style={{marginTop:'20px', width: "200px"}}>
                     {loading ? '' : 'Get tokens'}
                 </Button>
