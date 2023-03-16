@@ -57,9 +57,9 @@ const App = () => {
     };
 
     return (
-        <Layout style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <Header style={{flex: '0 0 auto', display: 'flex', alignItems: 'center'}}>
-                <a className="logo" style={{color: 'white', display: 'flex', alignItems: 'center'}}
+        <Layout className='main'>
+            <Header className='main__header'>
+                <a className="main__logo"
                    href='https://shardeum.org/'>
                     <svg width="128" height="25" viewBox="0 0 128 25" fill="white" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -98,23 +98,22 @@ const App = () => {
                     </svg>
                 </a>
             </Header>
-            <Content style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flex: '1 0 auto', flexDirection: 'column'}}>
-                <Form style={{textAlign: 'center', padding: '0 20px'}} onSubmitCapture={handleClick}>
+            <Content className="main__content">
+                <Form className='main__form' onSubmitCapture={handleClick}>
                     <Form.Item>
                         <Input value={value} size='large' onChange={handleInputChange}
                                placeholder="Enter your SHM address"/>
                     </Form.Item>
-                    <Form.Item style={{display: "flex", justifyContent: 'center'}}>
+                    <Form.Item className='main__recaptcha'>
                         <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef}/>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" loading={loading} disabled={!value} htmlType="submit"
-                                style={{width: "200px"}}>
+                        <Button type="primary" loading={loading} disabled={!value} htmlType="submit" size='middle' className='main__button'>
                             {loading ? '' : 'Get tokens'}
                         </Button>
                     </Form.Item>
                 </Form>
-                <div style={{textAlign: 'center', padding: '0 20px', marginTop: '20px'}}>
+                <div className='main__alert'>
                         {notification && (
                             <Alert
                                 message={notification}
@@ -124,11 +123,11 @@ const App = () => {
                                 onClose={() => setNotification('')}
                             />
                         )}
-                    <div style={{marginTop: '20px'}}>Подписывайтесь на нашу группу в телеграм - <a
+                    <div className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <a
                         href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</a></div>
                 </div>
             </Content>
-            <Footer style={{flex: '0 0 auto', display: 'flex', justifyContent: 'center'}}>
+            <Footer className='main__footer'>
                 <div>Created by <a href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</a></div>
             </Footer>
         </Layout>
