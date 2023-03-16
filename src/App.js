@@ -23,8 +23,7 @@ const App = () => {
                     token
                 }
             })
-            setValid(validation?.data?.success)
-            if (isValid) {
+            if (validation?.data?.success) {
                 const response = await axios.post('https://shardeum-faucet.vercel.app/sendSHM', null, {
                     params: {
                         address: value
@@ -38,7 +37,8 @@ const App = () => {
                     setError(true)
                 }
                 setValue('')
-            } else {
+            }
+            else {
                 setError(true)
                 setNotification('Solve Captcha First!');
             }
