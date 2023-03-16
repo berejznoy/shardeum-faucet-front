@@ -48,6 +48,7 @@ const App = () => {
             setValue('')
         } finally {
             setLoading(false);
+            captchaRef.current.reset()
         }
     };
 
