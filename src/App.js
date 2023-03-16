@@ -5,6 +5,8 @@ import {Header, Footer} from "antd/lib/layout/layout";
 import ReCAPTCHA from "react-google-recaptcha";
 import './App.css'
 import Title from "antd/lib/typography/Title";
+import Paragraph from "antd/lib/typography/Paragraph";
+import Link from "antd/lib/typography/Link";
 
 const {Content} = Layout;
 
@@ -145,13 +147,13 @@ const App = () => {
                                 onClose={() => setNotification('')}
                             />
                         )}
-                    <div className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <a
-                        href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</a></div>
+                    <Paragraph className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <Link
+                        href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</Link></Paragraph>
                 </div>
             </Content>
             <Footer className='main__footer'>
                 <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} size="invisible"/>
-                <div>Created by <a href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</a></div>
+                <Paragraph>Created by <Link href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</Link></Paragraph>
             </Footer>
         </Layout>
     );
