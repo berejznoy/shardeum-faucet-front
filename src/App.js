@@ -4,47 +4,71 @@ import axios from 'axios'
 import {Header, Footer} from "antd/lib/layout/layout";
 import ReCAPTCHA from "react-google-recaptcha";
 import './App.css'
+import Title from "antd/lib/typography/Title";
 
 const {Content} = Layout;
+
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const App = () => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState('');
     const [notification, setNotification] = useState('');
     const [isError, setError] = useState(false);
-    const [isValid, setValid] = useState(false);
     const captchaRef = useRef(null)
-    const handleClick = async () => {
+
+    const checkValidation = async () => {
         try {
-            setLoading(true);
             const token = await captchaRef.current.executeAsync();
-            const validation = await axios.post('https://shardeum-faucet.vercel.app/validate', null, {
+
+            const validation = await axios.post(`${BASE_URL}/validate`, null, {
                 params: {
                     token
                 }
             })
-            if (validation?.data?.success) {
-                const response = await axios.post('https://shardeum-faucet.vercel.app/sendSHM', null, {
-                    params: {
-                        address: value
-                    }
-                })
-                if (response.data.success) {
-                    setNotification('Funds have been transferred to your address. Should reflect in your wallet shortly');
-                    setError(false)
-                } else {
-                    setNotification(response.data.message);
-                    setError(true)
-                }
-                setValue('')
-            }
-            else {
+            return validation?.data?.success || false
+        } catch (e) {
+            throw new Error(e)
+        }
+    }
+
+    const afterCaptchaAction = (isValid) => {
+        const action = {
+            'false': () => {
                 setError(true)
-                setNotification('Solve Captcha First!');
+                setNotification('Invalid captcha!');
+            },
+            'true': async () => {
+                try {
+                    const response = await axios.post(`${BASE_URL}/sendSHM`, null, {
+                        params: {
+                            address: value
+                        }
+                    })
+                    if (response?.data?.success) {
+                        setNotification('Funds have been transferred to your address. Should reflect in your wallet shortly');
+                        setError(false)
+                    } else {
+                        setNotification(response.data.message);
+                        setError(true)
+                    }
+                    setValue('')
+                } catch (e) {
+                    throw new Error(e)
+                }
             }
+        }
+        return action[String(isValid)]
+    }
+
+    const handleClick = async () => {
+        try {
+            setLoading(true);
+            const isCaptchaValid = await checkValidation()
+            afterCaptchaAction(isCaptchaValid)()
         } catch (e) {
             setError(true)
-            setNotification(e?.response?.data?.message);
+            setNotification(e?.response?.data?.message || e?.message);
             setValue('')
         } finally {
             setLoading(false);
@@ -99,6 +123,7 @@ const App = () => {
                 </a>
             </Header>
             <Content className="main__content">
+                <h1>Shardeum Sphinx 1.X</h1>
                 <Form className='main__form' onSubmitCapture={handleClick}>
                     <Form.Item>
                         <Input value={value} size='large' onChange={handleInputChange}

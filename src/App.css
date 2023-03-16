@@ -6,6 +6,9 @@ html, #root, body {
     html {
         min-height: calc(env(safe-area-inset-bottom) + 100%)
     }
+    .main__header {
+        padding: 0 20px;
+    }
 }
 
 .main {
