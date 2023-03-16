@@ -17,7 +17,7 @@ const App = () => {
     const handleClick = async () => {
         try {
             setLoading(true);
-            const token = captchaRef.current.getValue();
+            const token = await captchaRef.current.executeAsync();
             const validation = await axios.post('https://shardeum-faucet.vercel.app/validate', null, {
                 params: {
                     token
@@ -48,7 +48,6 @@ const App = () => {
             setValue('')
         } finally {
             setLoading(false);
-            captchaRef.current.reset();
         }
     };
 
@@ -104,9 +103,6 @@ const App = () => {
                         <Input value={value} size='large' onChange={handleInputChange}
                                placeholder="Enter your SHM address"/>
                     </Form.Item>
-                    <Form.Item className='main__recaptcha'>
-                        <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef}/>
-                    </Form.Item>
                     <Form.Item>
                         <Button type="primary" loading={loading} disabled={!value} htmlType="submit" size='middle' className='main__button'>
                             {loading ? '' : 'Get tokens'}
@@ -128,6 +124,7 @@ const App = () => {
                 </div>
             </Content>
             <Footer className='main__footer'>
+                <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} size="invisible"/>
                 <div>Created by <a href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</a></div>
             </Footer>
         </Layout>
