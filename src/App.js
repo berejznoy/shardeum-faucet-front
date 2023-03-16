@@ -18,12 +18,19 @@ const App = () => {
         try {
             setLoading(true);
             const token = captchaRef.current.getValue();
-            const validation = await axios.post('https://shardeum-faucet.vercel.app/validate', {token})
+            const validation = await axios.post('https://shardeum-faucet.vercel.app/validate', {token}, {
+                headers: {
+                    'Access-Control-Allow-Headers': '*'
+                }
+            })
             setValid(validation?.data?.success)
             if (isValid) {
                 const response = await axios.post('https://shardeum-faucet.vercel.app/sendSHM', null, {
                     params: {
                         address: value
+                    },
+                    headers: {
+                        'Access-Control-Allow-Headers': '*'
                     }
                 })
                 if (response.data.success) {
