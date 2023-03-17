@@ -138,7 +138,7 @@ const App = () => {
                             fill="var(--chakra-colors-text)"></path>
                     </svg>
                 </a>
-                <p className='main__logo'>Balance {balance} SHM</p>
+                <p className='main__logo'>Balance: {balance} SHM</p>
             </Header>
             <Content className="main__content">
                 <h1>Shardeum Sphinx 1.X</h1>
