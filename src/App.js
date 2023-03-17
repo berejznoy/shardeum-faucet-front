@@ -1,23 +1,37 @@
-import React, {useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import {Layout, Input, Button, Alert, Form} from 'antd';
 import axios from 'axios'
 import {Header, Footer} from "antd/lib/layout/layout";
 import ReCAPTCHA from "react-google-recaptcha";
 import './App.css'
-import Title from "antd/lib/typography/Title";
 import Paragraph from "antd/lib/typography/Paragraph";
 import Link from "antd/lib/typography/Link";
 
 const {Content} = Layout;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
+const ADDRESS = process.env.REACT_APP_FAUCET_ADDRESS
 
 const App = () => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState('');
+    const [balance, setBalance] = useState('0 SHM');
     const [notification, setNotification] = useState('');
     const [isError, setError] = useState(false);
     const captchaRef = useRef(null)
+
+    const getBalance = async () => {
+        const response = await axios.get(`${BASE_URL}/balance`, {
+            params: {
+                address: ADDRESS
+            }
+        })
+        setBalance(response?.data || '0 SHM')
+    }
+
+    useLayoutEffect(() => {
+        getBalance()
+    }, [])
 
     const checkValidation = async () => {
         try {
@@ -67,14 +81,14 @@ const App = () => {
         try {
             setLoading(true);
             const isCaptchaValid = await checkValidation()
-            afterCaptchaAction(isCaptchaValid)()
+            await afterCaptchaAction(isCaptchaValid)()
         } catch (e) {
             setError(true)
             setNotification(e?.response?.data?.message || e?.message);
             setValue('')
         } finally {
+            await captchaRef.current.reset()
             setLoading(false);
-            captchaRef.current.reset()
         }
     };
 
@@ -123,6 +137,7 @@ const App = () => {
                             fill="var(--chakra-colors-text)"></path>
                     </svg>
                 </a>
+                <p className='main__logo'>Balance {balance}</p>
             </Header>
             <Content className="main__content">
                 <h1>Shardeum Sphinx 1.X</h1>
@@ -132,28 +147,38 @@ const App = () => {
                                placeholder="Enter your SHM address"/>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" loading={loading} disabled={!value} htmlType="submit" size='middle' className='main__button'>
+                        <Button type="primary" loading={loading} disabled={!value} htmlType="submit" size='middle'
+                                className='main__button'>
                             {loading ? '' : 'Get tokens'}
                         </Button>
                     </Form.Item>
+                    <Form.Item>
+                        <Paragraph>Check faucet in <Link
+                            href={`https://explorer-sphinx.shardeum.org/account/${ADDRESS}`}
+                            target='_blank'
+                        >Explorer</Link>
+                        </Paragraph>
+
+                    </Form.Item>
                 </Form>
                 <div className='main__alert'>
-                        {notification && (
-                            <Alert
-                                message={notification}
-                                type={isError ? 'error' : 'success'}
-                                showIcon
-                                closable
-                                onClose={() => setNotification('')}
-                            />
-                        )}
+                    {notification && (
+                        <Alert
+                            message={notification}
+                            type={isError ? 'error' : 'success'}
+                            showIcon
+                            closable
+                            onClose={() => setNotification('')}
+                        />
+                    )}
                     <Paragraph className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <Link
                         href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</Link></Paragraph>
                 </div>
             </Content>
             <Footer className='main__footer'>
                 <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} size="invisible"/>
-                <Paragraph>Created by <Link href='https://t.me/shardeumrus' target='_blank'>ShardeumRus</Link></Paragraph>
+                <Paragraph>Created by <Link href='https://t.me/shardeumrus'
+                                            target='_blank'>ShardeumRus</Link></Paragraph>
             </Footer>
         </Layout>
     );
