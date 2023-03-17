@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {Layout, Input, Button, Alert, Form} from 'antd';
 import axios from 'axios'
 import {Header, Footer} from "antd/lib/layout/layout";
@@ -29,7 +29,7 @@ const App = () => {
         setBalance(response?.data || '0 SHM')
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         getBalance()
     }, [])
 
