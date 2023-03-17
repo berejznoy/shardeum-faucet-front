@@ -15,7 +15,7 @@ const ADDRESS = process.env.REACT_APP_FAUCET_ADDRESS
 const App = () => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState('');
-    const [balance, setBalance] = useState('0 SHM');
+    const [balance, setBalance] = useState('0');
     const [notification, setNotification] = useState('');
     const [isError, setError] = useState(false);
     const captchaRef = useRef(null)
@@ -26,7 +26,7 @@ const App = () => {
                 address: ADDRESS
             }
         })
-        setBalance(response?.data || '0 SHM')
+        setBalance(response?.data || '0')
     }
 
     useEffect(() => {
@@ -83,6 +83,7 @@ const App = () => {
             const isCaptchaValid = await checkValidation()
             await afterCaptchaAction(isCaptchaValid)()
         } catch (e) {
+            console.error(e)
             setError(true)
             setNotification(e?.response?.data?.message || e?.message);
             setValue('')
@@ -137,7 +138,7 @@ const App = () => {
                             fill="var(--chakra-colors-text)"></path>
                     </svg>
                 </a>
-                <p className='main__logo'>Balance {balance}</p>
+                <p className='main__logo'>Balance {balance} SHM</p>
             </Header>
             <Content className="main__content">
                 <h1>Shardeum Sphinx 1.X</h1>
