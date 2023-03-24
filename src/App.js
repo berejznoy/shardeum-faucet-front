@@ -143,12 +143,6 @@ const App = () => {
             <Content className="main__content">
                 <h1>Shardeum Sphinx 1.X</h1>
                 <Form className='main__form' onSubmitCapture={handleClick}>
-                    <Form.Item> <Alert
-                        message='Sphinx 1.1.2 is down.
-We have been working to roll out Sphinx 1.1.3 and Sphinx 1.1.4, but those changes have not gone out yet.
-We will have more updates soon.'
-                        type='error'
-                    /></Form.Item>
                     <Form.Item>
                         <Input value={value} size='large' onChange={handleInputChange}
                                placeholder="Enter your SHM address"/>
@@ -173,7 +167,6 @@ We will have more updates soon.'
                         <Alert
                             message={notification}
                             type={isError ? 'error' : 'success'}
-                            showIcon
                             closable
                             onClose={() => setNotification('')}
                         />
