@@ -20,7 +20,7 @@ const App = () => {
     const captchaRef = useRef(null)
 
     const getBalance = async () => {
-        const response = await axios.get('https://get-shm.online/api/balance', {
+        const response = await axios.get('/api/balance', {
             params: {
                 address: ADDRESS
             }
@@ -36,7 +36,7 @@ const App = () => {
         try {
             const token = await captchaRef.current.executeAsync();
 
-            const validation = await axios.post('https://get-shm.online/api/validate', null, {
+            const validation = await axios.post('/api/validate', null, {
                 params: {
                     token
                 }
@@ -55,10 +55,10 @@ const App = () => {
             },
             'true': async () => {
                 try {
-                    const response = await axios.post('https://get-shm.online/api/sendSHM', null, {
+                    const response = await axios.post('/api/sendSHM', null, {
                         params: {
                             address: value
-                        }
+                        },
                     })
                     if (response?.data?.success) {
                         setNotification('Funds have been transferred to your address. Should reflect in your wallet shortly');
