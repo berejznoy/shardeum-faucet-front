@@ -9,7 +9,6 @@ import Link from "antd/lib/typography/Link";
 
 const {Content} = Layout;
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
 const ADDRESS = process.env.REACT_APP_FAUCET_ADDRESS
 
 const App = () => {
@@ -21,7 +20,7 @@ const App = () => {
     const captchaRef = useRef(null)
 
     const getBalance = async () => {
-        const response = await axios.get(`${BASE_URL}/balance`, {
+        const response = await axios.get('api/balance', {
             params: {
                 address: ADDRESS
             }
@@ -37,7 +36,7 @@ const App = () => {
         try {
             const token = await captchaRef.current.executeAsync();
 
-            const validation = await axios.post(`${BASE_URL}/validate`, null, {
+            const validation = await axios.post('api/validate', null, {
                 params: {
                     token
                 }
@@ -56,12 +55,12 @@ const App = () => {
             },
             'true': async () => {
                 try {
-                    const response = await axios.post(`${BASE_URL}/sendSHM`, null, {
+                    const response = await axios.post('api/sendSHM', null, {
                         params: {
                             address: value
                         },
                         headers: {
-                            "Access-Control-Allow-Origin": "http://212.118.40.17:3000",
+                            "Access-Control-Allow-Origin": "https://get-shm.online",
                             "Access-Control-Allow-Credentials": true,
                             "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
                         }
