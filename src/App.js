@@ -58,11 +58,6 @@ const App = () => {
                     const response = await axios.post('/api/sendSHM', null, {
                         params: {
                             address: value
-                        },
-                        headers: {
-                            "Access-Control-Allow-Origin": "https://get-shm.online",
-                            "Access-Control-Allow-Credentials": true,
-                            "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
                         }
                     })
                     if (response?.data?.success) {
