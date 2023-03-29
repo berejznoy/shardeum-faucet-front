@@ -61,7 +61,7 @@ const App = () => {
                             address: value
                         },
                         headers: {
-                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Origin": "http://212.118.40.17:3000",
                             "Access-Control-Allow-Credentials": true,
                             "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
                         }
