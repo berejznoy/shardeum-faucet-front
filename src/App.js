@@ -170,6 +170,8 @@ const App = () => {
                             onClose={() => setNotification('')}
                         />
                     )}
+                    <Paragraph className='main__block-info'>Buy Shardeum Domain: <Link
+                        href='https://dotshm.me?referral=skaarj' target='_blank'>dotshm.me</Link></Paragraph>
                     <Paragraph className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <Link
                         href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</Link></Paragraph>
                 </div>
