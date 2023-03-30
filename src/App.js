@@ -172,6 +172,8 @@ const App = () => {
                     )}
                     <Paragraph className='main__block-info'>Get Shardeum Domain: <Link
                         href='https://dotshm.me?referral=skaarj' target='_blank'>dotshm.me</Link></Paragraph>
+                    <Paragraph className='main__block-info'>Shardeum Dex: <Link
+                        href='https://testnet.shardex.org/reward?ref=24148E4F' target='_blank'>shardex.org</Link></Paragraph>
                     <Paragraph className='main__block-info'>Подписывайтесь на нашу группу в телеграм - <Link
                         href='https://t.me/shardeumrus' target='_blank'>https://t.me/shardeumrus</Link></Paragraph>
                 </div>
