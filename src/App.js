@@ -9,7 +9,9 @@ import Link from "antd/lib/typography/Link";
 
 const {Content} = Layout;
 
-const ADDRESS = process.env.REACT_APP_FAUCET_ADDRESS
+const ADDRESS1 = process.env.REACT_APP_FAUCET_ADDRESS1
+const ADDRESS2 = process.env.REACT_APP_FAUCET_ADDRESS2
+const ADDRESS3 = process.env.REACT_APP_FAUCET_ADDRESS3
 
 const App = () => {
     const [loading, setLoading] = useState(false);
@@ -153,10 +155,19 @@ const App = () => {
                         </Button>
                     </Form.Item>
                     <Form.Item>
-                        <Paragraph>Check faucet in <Link
-                            href={`https://explorer-sphinx.shardeum.org/account/${ADDRESS}`}
+                        <Paragraph>Check <Link
+                            href={`https://explorer-sphinx.shardeum.org/account/${ADDRESS1}`}
                             target='_blank'
-                        >Explorer</Link>
+                        >faucet1 </Link>
+                            <Link
+                                href={`https://explorer-sphinx.shardeum.org/account/${ADDRESS2}`}
+                                target='_blank'
+                            >faucet2 </Link>
+                            <Link
+                                href={`https://explorer-sphinx.shardeum.org/account/${ADDRESS3}`}
+                                target='_blank'
+                            >faucet3 </Link>
+                            in Explorer
                         </Paragraph>
 
                     </Form.Item>
