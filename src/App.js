@@ -22,7 +22,7 @@ const App = () => {
     const getBalance = async () => {
         const response = await axios.get('/api/balance', {
             params: {
-                address: ADDRESS1
+                address: ADDRESS
             }
         })
         setBalance(response?.data || '0')
